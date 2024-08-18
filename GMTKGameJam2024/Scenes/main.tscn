@@ -1,0 +1,103 @@
+[gd_scene load_steps=6 format=3 uid="uid://bhvror464dpoi"]
+
+[ext_resource type="Script" path="res://Scripts/main.gd" id="1_4av1d"]
+[ext_resource type="PackedScene" uid="uid://kajp5oqdistj" path="res://Scenes/test_body.tscn" id="1_60c52"]
+[ext_resource type="Script" path="res://Scripts/Bake.gd" id="4_638uo"]
+[ext_resource type="Texture2D" uid="uid://dg88laprkhixo" path="res://Art/MenuBackground.png" id="6_gvvnm"]
+[ext_resource type="FontFile" uid="uid://cq784gk6r6kwn" path="res://Art/Fonts/Kenney Blocks.ttf" id="7_7d06v"]
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_4av1d")
+number_of_goods = 1
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
+position = Vector2(135, 130)
+polygon = PackedVector2Array(-71, -27, -66, 445, 963, 448, 968, -71, -51, -77, -51, -108, 997, -114, 1005, 503, -108, 490, -114, -110, -73, -105)
+
+[node name="Test Body2" parent="." instance=ExtResource("1_60c52")]
+position = Vector2(528, 295)
+
+[node name="BakeButton" type="Button" parent="."]
+offset_left = 396.0
+offset_top = 514.0
+offset_right = 404.0
+offset_bottom = 522.0
+scale = Vector2(37, 10.76)
+action_mode = 0
+script = ExtResource("4_638uo")
+metadata/_edit_use_anchors_ = true
+
+[node name="Score Panel" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="NinePatchRect" type="NinePatchRect" parent="Score Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 529.0
+offset_top = 240.0
+offset_right = 569.0
+offset_bottom = 280.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(18.4, 11.72)
+pivot_offset = Vector2(19.3951, 18.5765)
+texture = ExtResource("6_gvvnm")
+region_rect = Rect2(3, 3, 3, 3)
+
+[node name="Total Score" type="Label" parent="Score Panel/NinePatchRect"]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 1.0
+offset_right = 398.0
+offset_bottom = 77.0
+scale = Vector2(0.0798257, 0.0626905)
+theme_override_fonts/font = ExtResource("7_7d06v")
+theme_override_font_sizes/font_size = 50
+text = "Total Score"
+
+[node name="Score_Number" type="Label" parent="Score Panel/NinePatchRect"]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 12.0
+offset_right = 130.0
+offset_bottom = 88.0
+scale = Vector2(0.0798257, 0.0626905)
+theme_override_fonts/font = ExtResource("7_7d06v")
+theme_override_font_sizes/font_size = 50
+
+[node name="Button" type="Button" parent="Score Panel/NinePatchRect"]
+layout_mode = 0
+offset_left = 29.2106
+offset_top = 28.8515
+offset_right = 37.2106
+offset_bottom = 36.8515
+
+[node name="Button2" type="Button" parent="Score Panel/NinePatchRect"]
+layout_mode = 0
+offset_left = 5.18883
+offset_top = 28.9369
+offset_right = 13.1888
+offset_bottom = 36.9369
+
+[node name="Button3" type="Button" parent="Score Panel/NinePatchRect"]
+layout_mode = 0
+offset_left = 17.3084
+offset_top = 29.1075
+offset_right = 25.3084
+offset_bottom = 37.1075
+
+[connection signal="end_round" from="." to="." method="_on_end_round"]
+[connection signal="end_round" from="." to="Test Body2" method="_on_main_end_round"]
+[connection signal="begin_baking" from="BakeButton" to="." method="_on_bake_button_begin_baking"]
+[connection signal="begin_baking" from="BakeButton" to="Test Body2" method="_on_bake_button_begin_baking"]
+[connection signal="button_down" from="BakeButton" to="BakeButton" method="_on_button_down"]

@@ -1,0 +1,85 @@
+[gd_scene load_steps=6 format=3 uid="uid://dllkfotasvs33"]
+
+[ext_resource type="Script" path="res://Scripts/score_number.gd" id="1_0576m"]
+[ext_resource type="FontFile" uid="uid://cq784gk6r6kwn" path="res://Art/Fonts/Kenney Blocks.ttf" id="2_b1de3"]
+
+[sub_resource type="Animation" id="Animation_kpbnf"]
+resource_name = "Score_rise_and_fade"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("LabelContainer:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0.5, 0.5), Vector2(2, 2), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("LabelContainer:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_a83nm"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("LabelContainer:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.5, 0.5)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("LabelContainer:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_urgkj"]
+_data = {
+"RESET": SubResource("Animation_a83nm"),
+"Score_rise_and_fade": SubResource("Animation_kpbnf")
+}
+
+[node name="score_number" type="Node2D"]
+script = ExtResource("1_0576m")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_urgkj")
+}
+
+[node name="LabelContainer" type="Node2D" parent="."]
+modulate = Color(1, 1, 1, 0)
+scale = Vector2(0.5, 0.5)
+
+[node name="Label" type="Label" parent="LabelContainer"]
+offset_left = -46.0
+offset_top = -34.0
+offset_right = 47.0
+offset_bottom = 35.0
+theme_override_fonts/font = ExtResource("2_b1de3")
+theme_override_font_sizes/font_size = 50
+text = "123"
